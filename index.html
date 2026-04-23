@@ -717,12 +717,13 @@ async function fetchTab(ti){
     const row=slice[i];
     const dateVal=String(row[tab.cols.date]||'').trim();
     const qtyVal=parseFloat(String(row[tab.cols.qty]||'').replace(/,/g,''));
-    // Only skip the "Dec,99" placeholder template rows, not real December dates
+    // Skip placeholder rows - gviz converts Dec,99 to a 1899 date
     if(!dateVal) continue;
-    const dvLow = dateVal.toLowerCase().replace(/\s/g,'');
-    if(dvLow==='dec,99'||dvLow==='dec99') continue;
+    if(dateVal.includes("1899")) continue;
+    const dvLow=dateVal.toLowerCase().replace(/\s/g,"");
+    if(dvLow==="dec,99"||dvLow==="dec99") continue;
     if(isNaN(qtyVal)||qtyVal===0) continue;
-    if(row.every(c=>!c||String(c).trim()==='')) continue;
+    if(row.every(c=>!c||String(c).trim()==="")) continue;
     dataRows.push({row,sheetRow:tab.dataStart+i+2});
   }
 
@@ -770,11 +771,14 @@ function updateSyncTime(){
 
 // ── WRITE ──
 async function scriptPost(payload){
-  if(!CFG.scriptUrl) throw new Error('No Apps Script URL. Open ⚙️ Settings to add one.');
-  const res=await fetch(CFG.scriptUrl,{method:'POST',body:JSON.stringify(payload)});
-  if(!res.ok) throw new Error('Script HTTP '+res.status);
-  const j=await res.json();
-  if(!j.ok) throw new Error(j.err||'Script error');
+  if(!CFG.scriptUrl) throw new Error("No Apps Script URL. Open Settings to add one.");
+  const form=new FormData();
+  form.append("data",JSON.stringify(payload));
+  const res=await fetch(CFG.scriptUrl,{method:"POST",body:form});
+  if(!res.ok) throw new Error("Script HTTP "+res.status);
+  const txt=await res.text();
+  const j=JSON.parse(txt);
+  if(!j.ok) throw new Error(j.err||"Script error");
 }
 
 // ── RENDER ──
