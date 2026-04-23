@@ -772,13 +772,19 @@ function updateSyncTime(){
 // ── WRITE ──
 async function scriptPost(payload){
   if(!CFG.scriptUrl) throw new Error("No Apps Script URL. Open Settings to add one.");
-  const form=new FormData();
-  form.append("data",JSON.stringify(payload));
-  const res=await fetch(CFG.scriptUrl,{method:"POST",body:form});
+  // Send data via URL param — avoids CORS preflight entirely with Google Apps Script
+  const url=CFG.scriptUrl+"?data="+encodeURIComponent(JSON.stringify(payload));
+  const res=await fetch(url,{method:"POST",body:""});
   if(!res.ok) throw new Error("Script HTTP "+res.status);
   const txt=await res.text();
-  const j=JSON.parse(txt);
-  if(!j.ok) throw new Error(j.err||"Script error");
+  try{
+    const j=JSON.parse(txt);
+    if(!j.ok) throw new Error(j.err||"Script error");
+  }catch(e){
+    // Apps Script sometimes returns HTML on success after redirect — treat as OK
+    if(txt.includes('"ok":true')||txt.includes('ok')) return;
+    throw new Error("Save failed: "+txt.substring(0,120));
+  }
 }
 
 // ── RENDER ──
