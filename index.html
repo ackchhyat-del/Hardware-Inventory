@@ -717,7 +717,10 @@ async function fetchTab(ti){
     const row=slice[i];
     const dateVal=String(row[tab.cols.date]||'').trim();
     const qtyVal=parseFloat(String(row[tab.cols.qty]||'').replace(/,/g,''));
-    if(!dateVal||dateVal.toLowerCase().includes('dec')) continue;
+    // Only skip the "Dec,99" placeholder template rows, not real December dates
+    if(!dateVal) continue;
+    const dvLow = dateVal.toLowerCase().replace(/\s/g,'');
+    if(dvLow==='dec,99'||dvLow==='dec99') continue;
     if(isNaN(qtyVal)||qtyVal===0) continue;
     if(row.every(c=>!c||String(c).trim()==='')) continue;
     dataRows.push({row,sheetRow:tab.dataStart+i+2});
@@ -734,14 +737,15 @@ async function fetchTab(ti){
 // ── SYNC ──
 async function syncAll(){
   setSyncState('loading','Syncing…');
+  const results=await Promise.allSettled([fetchTab(0),fetchTab(1),fetchTab(2)]);
   let ok=0;
-  for(let i=0;i<3;i++){
-    try{RAW[i]=await fetchTab(i);ok++;}
-    catch(e){console.warn('Tab',i,e.message);}
-  }
+  results.forEach((r,i)=>{
+    if(r.status==='fulfilled'){RAW[i]=r.value;ok++;}
+    else console.warn('Tab',i,TABS[i].sheetName,r.reason?.message);
+  });
   for(let i=0;i<3;i++) renderPanel(i);
   updateSyncTime();
-  if(ok===3) setSyncState('live','Live ✓');
+  if(ok===3) setSyncState('live','Live u2713');
   else if(ok>0) setSyncState('live',`${ok}/3 synced`);
   else{setSyncState('err','Cannot reach sheet');toast('Could not load data. Is the sheet shared publicly?','e');}
   startSync();
