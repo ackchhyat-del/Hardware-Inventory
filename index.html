@@ -20,7 +20,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .screen{display:none;width:100%;min-height:100vh}.screen.active{display:flex}
 
-/* LOGIN */
+/* ── LOGIN ── */
 #loginScreen{align-items:center;justify-content:center;background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(255,106,0,.13) 0%,transparent 70%),var(--bg)}
 .login-wrap{width:400px;display:flex;flex-direction:column;align-items:center;gap:28px}
 .brand{display:flex;flex-direction:column;align-items:center;gap:10px}
@@ -42,7 +42,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .btn-login:hover{background:#ff8833}.btn-login:active{transform:scale(.98)}.btn-login:disabled{opacity:.45;cursor:not-allowed}
 .login-hint{text-align:center;font-size:11px;color:var(--txt3)}
 
-/* DASHBOARD */
+/* ── DASHBOARD ── */
 #dashScreen{flex-direction:column;min-height:100vh}
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:0 30px;height:58px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
 .hdr-brand{display:flex;align-items:center;gap:11px}
@@ -58,17 +58,21 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .hdr-btn{display:flex;align-items:center;gap:5px;padding:6px 13px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);color:var(--txt2);font-family:'DM Mono';font-size:11px;cursor:pointer;transition:all var(--ease)}
 .hdr-btn:hover{border-color:var(--or);color:var(--or)}
 .hdr-btn svg{width:12px;height:12px;flex-shrink:0}
+
+/* TABS */
 .tabs{display:flex;align-items:stretch;background:var(--s1);border-bottom:1px solid var(--border);padding:0 30px}
 .tab{position:relative;display:flex;align-items:center;gap:8px;padding:14px 22px;background:none;border:none;color:var(--txt2);font-family:'Syne';font-size:13px;font-weight:600;cursor:pointer;transition:color var(--ease);white-space:nowrap}
 .tab::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--or);transform:scaleX(0);transition:transform var(--ease);transform-origin:left}
 .tab.on{color:var(--or)}.tab.on::after{transform:scaleX(1)}.tab:hover:not(.on){color:var(--txt)}
 .badge{background:var(--s3);border:1px solid var(--border);padding:2px 7px;border-radius:10px;font-size:10px;color:var(--txt2)}
 .tab.on .badge{background:rgba(255,106,0,.12);border-color:rgba(255,106,0,.28);color:var(--or)}
-.content{flex:1;padding:26px 30px 80px}
+
+/* CONTENT */
+.content{flex:1;padding:26px 30px 100px;position:relative}
 .panel{display:none}.panel.on{display:block;animation:up .28s ease}
 @keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* CARDS */
+/* STAT CARDS */
 .sec-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
 .sec-title{font-family:'Bebas Neue';font-size:30px;letter-spacing:2px}
 .sec-sub{font-size:10px;color:var(--txt2);letter-spacing:2px;margin-top:4px}
@@ -104,7 +108,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .kk{color:var(--txt2)}.vv{color:var(--txt)}
 .vv.or{color:var(--or)}.vv.gr{color:var(--green)}.vv.rd{color:var(--red)}
 
-/* TRANSACTIONS */
+/* TRANSACTION LIST */
 .tx-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .tx-lbl{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt2)}
 .tx-cols,.tx-row{display:grid;grid-template-columns:120px 1fr 50px 110px 110px 90px 30px;gap:10px;align-items:center;padding:10px 16px;border-radius:var(--rs);font-size:12px}
@@ -116,7 +120,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .tx-date{color:var(--txt2);font-size:11px}
 .tx-cust{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tx-qty{font-family:'Bebas Neue';font-size:20px;line-height:1}
-.status-pill{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;white-space:nowrap}
+.sp{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;white-space:nowrap}
 .sp-del{background:rgba(0,212,138,.1);color:var(--green)}
 .sp-shp{background:rgba(74,143,255,.1);color:#4a8fff}
 .sp-oth{background:var(--s3);color:var(--txt2)}
@@ -127,7 +131,120 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .no-data{text-align:center;padding:44px;color:var(--txt3);font-size:12px;line-height:1.8}
 .tx-scroll{max-height:400px;overflow-y:auto;padding-right:4px}
 
-/* DRAWER */
+/* ── FAB (Floating Add Button) ── */
+.fab{
+  position:fixed;bottom:32px;right:32px;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--or);border:none;
+  color:#fff;font-size:28px;line-height:1;
+  cursor:pointer;z-index:150;
+  box-shadow:0 4px 24px rgba(255,106,0,.45);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,box-shadow .2s;
+}
+.fab:hover{transform:scale(1.08);box-shadow:0 6px 32px rgba(255,106,0,.6)}
+.fab:active{transform:scale(.95)}
+
+/* ── ADD MODAL ── */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.78);z-index:400;
+  backdrop-filter:blur(5px);
+  align-items:flex-start;justify-content:center;
+  overflow-y:auto;padding:32px 16px;
+}
+.modal-bg.on{display:flex}
+.modal-box{
+  width:100%;max-width:860px;
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:var(--r);
+  display:flex;flex-direction:column;
+  animation:mup .25s ease;
+}
+@keyframes mup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+}
+.modal-title{font-family:'Bebas Neue';font-size:24px;letter-spacing:2px}
+.modal-title span{color:var(--or)}
+.modal-x{width:34px;height:34px;background:var(--s2);border:1px solid var(--border);border-radius:7px;color:var(--txt2);cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all var(--ease)}
+.modal-x:hover{border-color:var(--red);color:var(--red)}
+
+.modal-body{padding:24px;display:flex;flex-direction:column;gap:20px}
+
+/* Field grid */
+.field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:700px){.field-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.field-grid{grid-template-columns:1fr}}
+
+.field-group{display:flex;flex-direction:column;gap:5px}
+.field-group.span2{grid-column:span 2}
+.field-group.span3{grid-column:span 3}
+.fl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt2)}
+.fi,.fsel,.ftxt{
+  width:100%;padding:9px 11px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:var(--rs);color:var(--txt);
+  font-family:'DM Mono';font-size:12px;
+  outline:none;transition:border-color var(--ease);
+}
+.fi:focus,.fsel:focus,.ftxt:focus{border-color:var(--or)}
+.fsel option{background:var(--s2)}
+.ftxt{resize:vertical;min-height:60px}
+
+/* Extra fields section */
+.extra-section{border-top:1px solid var(--border);padding-top:18px}
+.extra-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.extra-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--txt2)}
+.btn-add-field{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 12px;background:transparent;
+  border:1px solid var(--border);border-radius:var(--rs);
+  color:var(--txt2);font-family:'DM Mono';font-size:11px;
+  cursor:pointer;transition:all var(--ease);
+}
+.btn-add-field:hover{border-color:var(--or);color:var(--or)}
+.extra-fields{display:flex;flex-direction:column;gap:8px}
+.extra-row{display:flex;gap:8px;align-items:center;animation:txin .18s ease}
+.extra-key{flex:0 0 160px}
+.extra-val{flex:1}
+.btn-rm-field{
+  width:28px;height:28px;flex-shrink:0;
+  background:transparent;border:1px solid var(--border);
+  border-radius:5px;color:var(--txt3);cursor:pointer;
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:all var(--ease);
+}
+.btn-rm-field:hover{border-color:var(--red);color:var(--red);background:rgba(255,69,69,.08)}
+
+/* Modal footer */
+.modal-foot{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;border-top:1px solid var(--border);
+  background:var(--s2);border-radius:0 0 var(--r) var(--r);
+}
+.modal-hint{font-size:11px;color:var(--txt3)}
+.foot-btns{display:flex;gap:10px}
+.btn-cancel{
+  padding:10px 20px;background:transparent;
+  border:1px solid var(--border);border-radius:var(--rs);
+  color:var(--txt2);font-family:'Syne';font-size:12px;font-weight:600;
+  cursor:pointer;transition:all var(--ease);
+}
+.btn-cancel:hover{border-color:var(--txt2);color:var(--txt)}
+.btn-save-modal{
+  padding:10px 28px;background:var(--or);border:none;
+  border-radius:var(--rs);color:#fff;
+  font-family:'Syne';font-size:13px;font-weight:700;letter-spacing:1px;
+  cursor:pointer;transition:all var(--ease);
+  display:flex;align-items:center;gap:6px;
+}
+.btn-save-modal:hover{background:#ff8533;box-shadow:0 4px 16px rgba(255,106,0,.3)}
+.btn-save-modal:disabled{opacity:.5;cursor:not-allowed}
+
+/* SETTINGS DRAWER */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;backdrop-filter:blur(4px)}
 .overlay.on{display:block}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:400px;background:var(--s1);border-left:1px solid var(--border);z-index:201;overflow-y:auto;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);padding:28px;display:flex;flex-direction:column;gap:20px}
@@ -140,23 +257,23 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .d-sec-title{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--txt2);padding-bottom:8px;border-bottom:1px solid var(--border)}
 .d-note{font-size:11px;color:var(--txt2);line-height:1.75;background:var(--s2);border:1px solid var(--border);border-radius:var(--rs);padding:12px}
 .d-note b{color:var(--or)}
-.btn-save{padding:12px;background:var(--or);border:none;border-radius:var(--rs);color:#fff;font-family:'Syne';font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all var(--ease)}
-.btn-save:hover{background:#ff8533}
-.btn-outline{padding:11px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);color:var(--txt2);font-family:'Syne';font-size:12px;font-weight:600;cursor:pointer;transition:all var(--ease)}
-.btn-outline:hover{border-color:var(--or);color:var(--or)}
+.btn-dsave{padding:12px;background:var(--or);border:none;border-radius:var(--rs);color:#fff;font-family:'Syne';font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all var(--ease)}
+.btn-dsave:hover{background:#ff8533}
+.btn-doutline{padding:11px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);color:var(--txt2);font-family:'Syne';font-size:12px;font-weight:600;cursor:pointer;transition:all var(--ease)}
+.btn-doutline:hover{border-color:var(--or);color:var(--or)}
 
 /* GUIDE MODAL */
-.m-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;backdrop-filter:blur(4px)}
-.m-overlay.on{display:block}
-.modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;max-width:96vw;max-height:88vh;overflow-y:auto;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:28px;z-index:301}
-.modal.on{display:block}
-.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modal-title{font-family:'Bebas Neue';font-size:22px;letter-spacing:2px}
+.g-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;backdrop-filter:blur(4px)}
+.g-overlay.on{display:block}
+.g-modal{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;max-width:96vw;max-height:88vh;overflow-y:auto;background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:28px;z-index:301}
+.g-modal.on{display:block}
+.g-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.g-title{font-family:'Bebas Neue';font-size:22px;letter-spacing:2px}
 .code-block{background:var(--s3);border:1px solid var(--border);border-radius:var(--rs);padding:14px;font-family:'DM Mono';font-size:11px;color:#a0c4ff;margin:14px 0;white-space:pre;overflow-x:auto;line-height:1.6}
 .hl{color:var(--or)}
 
 /* TOAST */
-.toasts{position:fixed;bottom:20px;right:20px;z-index:500;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toasts{position:fixed;bottom:100px;right:24px;z-index:600;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast{min-width:260px;padding:12px 16px;background:var(--s1);border:1px solid var(--border);border-radius:var(--rs);display:flex;align-items:center;gap:9px;font-size:12px;box-shadow:0 6px 20px rgba(0,0,0,.5);animation:tin .25s ease;pointer-events:auto}
 @keyframes tin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
 .toast.s{border-color:rgba(0,212,138,.3)}.toast.e{border-color:rgba(255,69,69,.3)}.toast.i{border-color:rgba(255,106,0,.3)}
@@ -164,7 +281,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 @keyframes tout{to{opacity:0;transform:translateX(16px)}}
 
 /* LOADER */
-.ldr{position:fixed;inset:0;background:rgba(7,7,7,.85);display:none;align-items:center;justify-content:center;z-index:600}
+.ldr{position:fixed;inset:0;background:rgba(7,7,7,.85);display:none;align-items:center;justify-content:center;z-index:700}
 .ldr.on{display:flex}
 .spin{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--or);border-radius:50%;animation:sp .75s linear infinite;margin:0 auto 14px}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -173,7 +290,7 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
 .wm b{color:var(--or)}
 
 @media(max-width:1200px){.stat-grid{grid-template-columns:repeat(2,1fr)}.tx-cols,.tx-row{grid-template-columns:100px 1fr 45px 90px}}
-@media(max-width:700px){.hdr,.tabs{padding:0 14px}.content{padding:14px 14px 60px}.stat-grid{grid-template-columns:1fr 1fr}.info-row{grid-template-columns:1fr}}
+@media(max-width:700px){.hdr,.tabs{padding:0 14px}.content{padding:14px 14px 100px}.stat-grid{grid-template-columns:1fr 1fr}.info-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -240,7 +357,177 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
     <div class="panel"    id="panel1"></div>
     <div class="panel"    id="panel2"></div>
   </div>
+
+  <!-- FAB -->
+  <button class="fab" id="fabBtn" onclick="openAddModal()" title="Add new shipment">+</button>
+
   <div class="wm">Fleet<b>Panda</b></div>
+</div>
+
+<!-- ══════ ADD SHIPMENT MODAL ══════ -->
+<div class="modal-bg" id="addModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Add Shipment — <span id="modalTabName">Panda Box (Black)</span></div>
+      <button class="modal-x" onclick="closeAddModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Row 1: Date, Month, Item -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Date *</span>
+          <input class="fi" type="date" id="f_date"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Month</span>
+          <input class="fi" type="text" id="f_month" placeholder="e.g. Apr,26"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Item</span>
+          <input class="fi" type="text" id="f_item" placeholder="Auto-filled"/>
+        </div>
+      </div>
+
+      <!-- Row 2: Qty, POC Name, POC Email -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Quantity *</span>
+          <input class="fi" type="number" id="f_qty" placeholder="0" min="1"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">POC Name</span>
+          <input class="fi" type="text" id="f_poc_name" placeholder="Name…"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">POC Email</span>
+          <input class="fi" type="email" id="f_poc_email" placeholder="email@…"/>
+        </div>
+      </div>
+
+      <!-- Row 3: POC Phone, Customer Name, Customer Address -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">POC Phone Number</span>
+          <input class="fi" type="text" id="f_poc_phone" placeholder="+1…"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Customer Name *</span>
+          <input class="fi" type="text" id="f_customer" placeholder="Customer…"/>
+        </div>
+        <div class="field-group span2" style="grid-column:unset">
+          <span class="fl">Customer Address</span>
+          <input class="fi" type="text" id="f_address" placeholder="Full address…"/>
+        </div>
+      </div>
+
+      <!-- Row 4: Tracking, Status -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Tracking Number</span>
+          <input class="fi" type="text" id="f_tracking" placeholder="Tracking #…"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Status</span>
+          <select class="fsel" id="f_status">
+            <option value="">— Select —</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Pending">Pending</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Returned">Returned</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <span class="fl">Paid</span>
+          <select class="fsel" id="f_paid">
+            <option value="">— Select —</option>
+            <option value="Paid">Paid</option>
+            <option value="Not Paid">Not Paid</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 5: Invoice fields -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Invoice Date</span>
+          <input class="fi" type="date" id="f_inv_date"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Invoice No.</span>
+          <input class="fi" type="text" id="f_inv_no" placeholder="INV…"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Invoiced Unit</span>
+          <input class="fi" type="number" id="f_inv_unit" placeholder="0"/>
+        </div>
+      </div>
+
+      <!-- Row 6: Shipping -->
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Shipping Cost ($)</span>
+          <input class="fi" type="number" id="f_ship_cost" placeholder="0.00" step="0.01"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Shipping Invoice</span>
+          <input class="fi" type="text" id="f_ship_inv" placeholder="INV… dated …"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">Click Up Ticket</span>
+          <input class="fi" type="text" id="f_clickup" placeholder="URL or ID…"/>
+        </div>
+      </div>
+
+      <!-- Row 7: Remarks, Completed -->
+      <div class="field-grid">
+        <div class="field-group span3" style="grid-column:1/-1">
+          <span class="fl">Remarks</span>
+          <textarea class="ftxt" id="f_remarks" placeholder="Any notes…"></textarea>
+        </div>
+      </div>
+      <div class="field-grid">
+        <div class="field-group">
+          <span class="fl">Completed</span>
+          <select class="fsel" id="f_completed">
+            <option value="">— Select —</option>
+            <option value="TRUE">✅ Yes</option>
+            <option value="FALSE">❌ No</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <span class="fl">Keka</span>
+          <input class="fi" type="text" id="f_keka" placeholder="Keka ref…"/>
+        </div>
+        <div class="field-group">
+          <span class="fl">QBO</span>
+          <input class="fi" type="text" id="f_qbo" placeholder="QBO ref…"/>
+        </div>
+      </div>
+
+      <!-- Extra / Custom Fields -->
+      <div class="extra-section">
+        <div class="extra-head">
+          <span class="extra-title">➕ Custom Fields (optional)</span>
+          <button class="btn-add-field" onclick="addExtraField()">+ Add field</button>
+        </div>
+        <div class="extra-fields" id="extraFields"></div>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <div class="modal-foot">
+      <div class="modal-hint" id="modalHint">All fields marked * are required</div>
+      <div class="foot-btns">
+        <button class="btn-cancel" onclick="closeAddModal()">Cancel</button>
+        <button class="btn-save-modal" id="saveModalBtn" onclick="saveNewShipment()">
+          💾 Save Shipment
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- SETTINGS DRAWER -->
@@ -256,8 +543,8 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
       <span class="lbl">Apps Script Web App URL</span>
       <input class="pw-input" id="dScript" placeholder="https://script.google.com/macros/s/…/exec" style="font-size:12px"/>
     </div>
-    <div class="d-note">Paste a deployed Apps Script URL to enable <b>adding shipments</b> and <b>deleting rows</b> from the dashboard. Without it the dashboard is read-only.</div>
-    <button class="btn-outline" onclick="openGuide()">📋 2-min setup guide</button>
+    <div class="d-note">Required for the <b>+ Add</b> button and row deletion to work. Without it the dashboard is read-only.</div>
+    <button class="btn-doutline" onclick="openGuide()">📋 2-min setup guide</button>
   </div>
   <div class="d-sec">
     <div class="d-sec-title">Auto-Sync</div>
@@ -266,17 +553,17 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
       <input class="pw-input" id="dInterval" type="number" min="10" value="30" style="font-size:12px"/>
     </div>
   </div>
-  <button class="btn-save" onclick="saveDrawer()">SAVE SETTINGS</button>
+  <button class="btn-dsave" onclick="saveDrawer()">SAVE SETTINGS</button>
 </div>
 
 <!-- GUIDE MODAL -->
-<div class="m-overlay" id="mOverlay" onclick="closeGuide()"></div>
-<div class="modal" id="guideModal">
-  <div class="modal-hdr">
-    <div class="modal-title">Apps Script <b style="color:var(--or)">Setup</b></div>
+<div class="g-overlay" id="gOverlay" onclick="closeGuide()"></div>
+<div class="g-modal" id="gModal">
+  <div class="g-hdr">
+    <div class="g-title">Apps Script <b style="color:var(--or)">Setup</b></div>
     <button class="d-x" onclick="closeGuide()">✕</button>
   </div>
-  <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:4px">Copy this into your Google Sheet → Extensions → Apps Script:</p>
+  <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:4px">In your Google Sheet → Extensions → Apps Script → replace all code with this:</p>
   <div class="code-block">const SHEET_ID = '<span class="hl">1RCZTOvlqDL14eaZlfS75zmkDnHo56NEYe5q3fm_U_gg</span>';
 
 function doPost(e) {
@@ -292,12 +579,10 @@ function out(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }</div>
-  <ol style="font-size:12px;color:var(--txt2);line-height:1.8;padding-left:18px;display:flex;flex-direction:column;gap:6px">
-    <li>Open Sheet → <b style="color:var(--txt)">Extensions → Apps Script</b></li>
-    <li>Delete existing code, paste above, <b style="color:var(--txt)">Save (Cmd+S)</b></li>
-    <li><b style="color:var(--txt)">Deploy → New deployment → Web app</b></li>
+  <ol style="font-size:12px;color:var(--txt2);line-height:1.9;padding-left:18px;display:flex;flex-direction:column;gap:4px">
+    <li>Cmd+S to save → <b style="color:var(--txt)">Deploy → New deployment → Web app</b></li>
     <li>Execute as: <b style="color:var(--txt)">Me</b> · Who has access: <b style="color:var(--txt)">Anyone</b></li>
-    <li>Copy the Web App URL → paste into <b style="color:var(--or)">Settings</b></li>
+    <li>Copy the URL → paste into <b style="color:var(--or)">Settings → Apps Script URL</b></li>
   </ol>
 </div>
 
@@ -305,85 +590,62 @@ function out(obj) {
 <div class="toasts" id="toasts"></div>
 
 <script>
-// ═══════════════════════════════════════
-//  VERIFIED SHEET STRUCTURE (from Apps Script log)
-//
-//  Panda Box (Black):
-//    Summary: Row6=Purchased(C,D), Row7=Sent(C,D), Row8=Remaining(C,D)
-//    Header:  Row 9
-//    Data:    Row 10+
-//    Cols(0-based): Date=0, Month=1, Item=2, Qty=3, POCName=4,
-//             POCEmail=5, POCPhone=6, Customer=7, Address=8,
-//             Tracking=9, Status=10, InvDate=11, InvNo=12,
-//             InvUnit=13, Paid=14, ShippingCost=15, ShipInv=16,
-//             Remarks=17, ClickUp=18, Completed=19
-//
-//  Bixolon Printers:
-//    Summary: Row1=Purchased(C,D), Row2=Sent(C,D), Row3=Remaining(C,D)
-//    Header:  Row 4
-//    Data:    Row 5+
-//    Cols(0-based): Date=0, Month=1, Item=2, Qty=3, QBO=4,
-//             POCName=5, POCEmail=6, POCPhone=7, Customer=8,
-//             Address=9, Tracking=10, Status=11, InvDate=12,
-//             InvNo=13, InvUnit=14, Paid=15, ShippingCost=16,
-//             ShipInv=17, Remarks=18, ClickUp=19
-//
-//  QR (FleetPanda Branded):
-//    Summary: Row6=Purchased(C,D), Row7=Sent(C,D), Row8=Remaining(C,D)
-//    Header:  Row 9
-//    Data:    Row 10+
-//    Cols(0-based): same as Panda Box
-// ═══════════════════════════════════════
-
+// ═══════════════════════════════════════════
+//  VERIFIED SHEET STRUCTURE (Apps Script log)
+// ═══════════════════════════════════════════
 const PW_HASH = 'efba2688178e161b5e18bb41148a77116aac139d17fd4ce39d291c033a822f5b';
 const SID     = '1RCZTOvlqDL14eaZlfS75zmkDnHo56NEYe5q3fm_U_gg';
 
-// Tab definitions — all from verified Apps Script output
 const TABS = [
   {
-    label:      'Panda Box (Black)',
-    sheetName:  'Panda Box (Black)',
-    icon:       '📦',
-    // Summary rows (0-indexed): row5=purchased, row6=sent, row7=remaining
-    sumRow:     { purchased:5, sent:6, remaining:7 },
-    sumValCol:  3,   // column D (0-indexed=3) holds the number
-    dataStart:  9,   // row 10 in sheet = index 9 (0-indexed)
-    // Data columns (0-indexed)
-    cols: { date:0, qty:3, customer:7, status:10, cost:15, remarks:17 }
+    label:'Panda Box (Black)', sheetName:'Panda Box (Black)', icon:'📦',
+    sumRow:{purchased:5,sent:6,remaining:7}, sumValCol:3,
+    dataStart:9,
+    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17},
+    // Column order for appending a new row (matches sheet columns A-T)
+    // A=date,B=month,C=item,D=qty,E=poc_name,F=poc_email,G=poc_phone,
+    // H=customer,I=address,J=tracking,K=status,L=inv_date,M=inv_no,
+    // N=inv_unit,O=paid,P=ship_cost,Q=ship_inv,R=remarks,S=clickup,T=completed
+    rowMap:['date','month','item','qty','poc_name','poc_email','poc_phone',
+            'customer','address','tracking','status','inv_date','inv_no',
+            'inv_unit','paid','ship_cost','ship_inv','remarks','clickup','completed']
   },
   {
-    label:      'Bixolon Printers',
-    sheetName:  'Bixolon Printers',
-    icon:       '🖨',
-    // Summary rows (0-indexed): row0=purchased, row1=sent, row2=remaining
-    sumRow:     { purchased:0, sent:1, remaining:2 },
-    sumValCol:  3,   // column D
-    dataStart:  4,   // row 5 in sheet = index 4
-    cols: { date:0, qty:3, customer:8, status:11, cost:16, remarks:18 }
+    label:'Bixolon Printers', sheetName:'Bixolon Printers', icon:'🖨',
+    sumRow:{purchased:0,sent:1,remaining:2}, sumValCol:3,
+    dataStart:4,
+    cols:{date:0,qty:3,customer:8,status:11,cost:16,remarks:18},
+    // A=date,B=month,C=item,D=qty,E=qbo,F=poc_name,G=poc_email,H=poc_phone,
+    // I=customer,J=address,K=tracking,L=status,M=inv_date,N=inv_no,
+    // O=inv_unit,P=paid,Q=ship_cost,R=ship_inv,S=remarks,T=clickup
+    rowMap:['date','month','item','qty','qbo','poc_name','poc_email','poc_phone',
+            'customer','address','tracking','status','inv_date','inv_no',
+            'inv_unit','paid','ship_cost','ship_inv','remarks','clickup']
   },
   {
-    label:      'QR (FleetPanda Branded)',
-    sheetName:  'QR (FleetPanda Branded)',
-    icon:       '🔲',
-    // Same structure as Panda Box
-    sumRow:     { purchased:5, sent:6, remaining:7 },
-    sumValCol:  3,
-    dataStart:  9,
-    cols: { date:0, qty:3, customer:7, status:10, cost:15, remarks:17 }
+    label:'QR (FleetPanda Branded)', sheetName:'QR (FleetPanda Branded)', icon:'🔲',
+    sumRow:{purchased:5,sent:6,remaining:7}, sumValCol:3,
+    dataStart:9,
+    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17},
+    rowMap:['date','month','item','qty','poc_name','poc_email','poc_phone',
+            'customer','address','tracking','status','inv_date','inv_no',
+            'inv_unit','paid','ship_cost','ship_inv','remarks','clickup','completed']
   }
 ];
 
+// Item names per tab (auto-filled)
+const ITEM_NAMES = ['Panda Box (Black)','BIXOLON Printer','QR Codes (FleetPanda Branded)'];
 const INTERNAL_KW = ['fleetpanda','fleet panda'];
 const isInternal  = n => n && INTERNAL_KW.some(k=>n.toLowerCase().includes(k));
 
-let CFG = {}, RAW = [{},{},{}], syncTimer = null;
+let CFG = {}, RAW = [{},{},{}], syncTimer = null, currentTab = 0;
 
 // ── CONFIG ──
 function loadCFG(){
-  const s=localStorage.getItem('fp_cfg5');
-  CFG = s ? JSON.parse(s) : { scriptUrl:'', interval:30 };
+  const s=localStorage.getItem('fp_cfg6');
+  CFG = s ? JSON.parse(s) : {scriptUrl:'',interval:30};
 }
-function saveCFG(){ localStorage.setItem('fp_cfg5',JSON.stringify(CFG)); }
+function saveCFG(){ localStorage.setItem('fp_cfg6',JSON.stringify(CFG)); }
 
 // ── AUTH ──
 async function sha256(s){
@@ -414,7 +676,7 @@ function doLogout(){
   document.getElementById('pwInput').value='';
 }
 
-// ── ENTER DASHBOARD ──
+// ── ENTER DASH ──
 function enterDash(){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('dashScreen').classList.add('active');
@@ -423,70 +685,50 @@ function enterDash(){
   syncAll();
 }
 
-// ── FETCH via gviz (public sheet, no API key needed) ──
+// ── FETCH ──
 async function fetchTab(ti){
   const tab=TABS[ti];
-  // headers=0 means no header skipping — we get ALL rows including summary rows
   const url=`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tab.sheetName)}&headers=0`;
   const res=await fetch(url);
   if(!res.ok) throw new Error('HTTP '+res.status);
   const txt=await res.text();
-  // Strip JSONP wrapper
   const json=txt.replace(/^[^\(]+\(/,'').replace(/\);\s*$/,'');
   const obj=JSON.parse(json);
   if(obj.status!=='ok') throw new Error((obj.errors||[{}])[0].detailed_message||'gviz error');
 
-  // Convert to plain arrays
   const all=(obj.table.rows||[]).map(row=>
     (row.c||[]).map(cell=>{
       if(!cell||cell.v===null||cell.v===undefined) return '';
-      // gviz returns dates as  Date(year,month,day) — month is 0-indexed
       if(typeof cell.v==='string'&&cell.v.startsWith('Date(')){
         const p=cell.v.replace('Date(','').replace(')','').split(',').map(Number);
         return new Date(p[0],p[1],p[2]).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
       }
-      // Use formatted string if available (e.g. currency, dates)
-      return (cell.f!=null&&cell.f!==undefined)?String(cell.f):String(cell.v);
+      return(cell.f!=null)?String(cell.f):String(cell.v);
     })
   );
 
-  // ── Read summary from known rows ──
-  const sv=tab.sumValCol;
-  const sr=tab.sumRow;
-  const getNum=rowIdx=>{
-    const row=all[rowIdx]||[];
-    const v=parseFloat(String(row[sv]||'').replace(/,/g,''));
-    return isNaN(v)?0:v;
-  };
-  const summary={
-    purchased: getNum(sr.purchased),
-    sent:      getNum(sr.sent),
-    remaining: getNum(sr.remaining)
-  };
+  const sv=tab.sumValCol, sr=tab.sumRow;
+  const getNum=ri=>{const v=parseFloat(String((all[ri]||[])[sv]||'').replace(/,/g,''));return isNaN(v)?0:v;};
+  const summary={purchased:getNum(sr.purchased),sent:getNum(sr.sent),remaining:getNum(sr.remaining)};
 
-  // ── Extract data rows ──
   const dataRows=[];
-  const fullSlice=all.slice(tab.dataStart);
-  for(let i=0;i<fullSlice.length;i++){
-    const row=fullSlice[i];
+  const slice=all.slice(tab.dataStart);
+  for(let i=0;i<slice.length;i++){
+    const row=slice[i];
     const dateVal=String(row[tab.cols.date]||'').trim();
-    const qtyVal =parseFloat(String(row[tab.cols.qty]||'').replace(/,/g,''));
-    // Skip empty rows and placeholder rows (Dec,99)
+    const qtyVal=parseFloat(String(row[tab.cols.qty]||'').replace(/,/g,''));
     if(!dateVal||dateVal.toLowerCase().includes('dec')) continue;
     if(isNaN(qtyVal)||qtyVal===0) continue;
     if(row.every(c=>!c||String(c).trim()==='')) continue;
-    dataRows.push({row, sheetRow: tab.dataStart+i+2}); // +2: 1-index + header offset
+    dataRows.push({row,sheetRow:tab.dataStart+i+2});
   }
 
-  // ── Shipping stats ──
-  const costs=dataRows
-    .map(({row})=>parseFloat(String(row[tab.cols.cost]||'').replace(/[$,]/g,'')))
-    .filter(v=>!isNaN(v)&&v>0);
+  const costs=dataRows.map(({row})=>parseFloat(String(row[tab.cols.cost]||'').replace(/[$,]/g,''))).filter(v=>!isNaN(v)&&v>0);
   const totalShip=costs.reduce((a,b)=>a+b,0);
-  const avgShip  =costs.length?totalShip/costs.length:0;
-  const intCount =dataRows.filter(({row})=>isInternal(String(row[tab.cols.customer]||''))).length;
+  const avgShip=costs.length?totalShip/costs.length:0;
+  const intCount=dataRows.filter(({row})=>isInternal(String(row[tab.cols.customer]||''))).length;
 
-  return {summary, rows:dataRows, avgShip, totalShip, intCount};
+  return{summary,rows:dataRows,avgShip,totalShip,intCount};
 }
 
 // ── SYNC ──
@@ -494,25 +736,22 @@ async function syncAll(){
   setSyncState('loading','Syncing…');
   let ok=0;
   for(let i=0;i<3;i++){
-    try{ RAW[i]=await fetchTab(i); ok++; }
-    catch(e){ console.warn('Tab',i,TABS[i].sheetName,e.message); }
+    try{RAW[i]=await fetchTab(i);ok++;}
+    catch(e){console.warn('Tab',i,e.message);}
   }
   for(let i=0;i<3;i++) renderPanel(i);
   updateSyncTime();
-  if(ok===3)      setSyncState('live','Live ✓');
-  else if(ok>0)   setSyncState('live',`${ok}/3 synced`);
-  else {
-    setSyncState('err','Cannot reach sheet');
-    toast('Could not load data. Is the sheet shared publicly?','e');
-  }
+  if(ok===3) setSyncState('live','Live ✓');
+  else if(ok>0) setSyncState('live',`${ok}/3 synced`);
+  else{setSyncState('err','Cannot reach sheet');toast('Could not load data. Is the sheet shared publicly?','e');}
   startSync();
 }
-function startSync(){ stopSync(); syncTimer=setInterval(syncAll,(CFG.interval||30)*1000); }
-function stopSync(){ if(syncTimer){clearInterval(syncTimer);syncTimer=null;} }
+function startSync(){stopSync();syncTimer=setInterval(syncAll,(CFG.interval||30)*1000);}
+function stopSync(){if(syncTimer){clearInterval(syncTimer);syncTimer=null;}}
 function setSyncState(st,lbl){
   const d=document.getElementById('syncDot'),l=document.getElementById('syncLbl');
   d.className='dot';
-  if(st==='err')     d.classList.add('err');
+  if(st==='err') d.classList.add('err');
   if(st==='loading') d.classList.add('loading');
   if(l) l.textContent=lbl;
 }
@@ -523,7 +762,7 @@ function updateSyncTime(){
 
 // ── WRITE ──
 async function scriptPost(payload){
-  if(!CFG.scriptUrl) throw new Error('No Apps Script URL. Open Settings to add one.');
+  if(!CFG.scriptUrl) throw new Error('No Apps Script URL. Open ⚙️ Settings to add one.');
   const res=await fetch(CFG.scriptUrl,{method:'POST',body:JSON.stringify(payload)});
   if(!res.ok) throw new Error('Script HTTP '+res.status);
   const j=await res.json();
@@ -534,11 +773,9 @@ async function scriptPost(payload){
 function renderPanel(ti){
   const tc=TABS[ti];
   const raw=RAW[ti]||{summary:{purchased:0,sent:0,remaining:0},rows:[],avgShip:0,totalShip:0,intCount:0};
-  const s=raw.summary;
-  const rows=raw.rows||[];
+  const s=raw.summary, rows=raw.rows||[];
   const pct=s.purchased>0?Math.min(100,Math.round(s.sent/s.purchased*100)):0;
 
-  // Update tab badge
   const b=document.getElementById('b'+ti);
   if(b) b.textContent=s.remaining||'—';
 
@@ -605,8 +842,7 @@ function renderPanel(ti){
           <div class="kv"><span class="kk">Total sent out</span><span class="vv rd">${fmt(s.sent)}</span></div>
           <div class="kv"><span class="kk">Remaining in office</span><span class="vv or">${fmt(s.remaining)}</span></div>
           <div class="kv" style="padding-top:8px;border-top:1px solid var(--border)">
-            <span class="kk">Internal shipments</span>
-            <span class="vv">${raw.intCount||0} (testing / Nepal)</span>
+            <span class="kk">Internal shipments</span><span class="vv">${raw.intCount||0} (testing / Nepal)</span>
           </div>
         </div>
       </div>
@@ -624,22 +860,21 @@ function renderPanel(ti){
 }
 
 function buildRows(ti){
-  const tc=TABS[ti];
-  const rows=(RAW[ti]||{}).rows||[];
-  if(!rows.length) return `<div class="no-data">No shipment data found.<br><span style="color:var(--txt3)">Make sure the sheet is shared as "Anyone with the link can view"</span></div>`;
+  const tc=TABS[ti], rows=(RAW[ti]||{}).rows||[];
+  if(!rows.length) return `<div class="no-data">No shipment data yet.<br><span style="color:var(--txt3)">Click the <b style="color:var(--or)">+</b> button to add your first shipment.</span></div>`;
   return rows.slice().reverse().slice(0,80).map(({row,sheetRow})=>{
-    const date  =String(row[tc.cols.date]||'');
-    const cust  =String(row[tc.cols.customer]||'');
-    const qty   =String(row[tc.cols.qty]||'');
+    const date=String(row[tc.cols.date]||'');
+    const cust=String(row[tc.cols.customer]||'');
+    const qty=String(row[tc.cols.qty]||'');
     const status=String(row[tc.cols.status]||'');
-    const cost  =parseFloat(String(row[tc.cols.cost]||'').replace(/[$,]/g,''))||0;
-    const inter =isInternal(cust);
-    const stCls =status.toLowerCase().includes('deliver')?'sp-del':status.toLowerCase().includes('ship')?'sp-shp':'sp-oth';
+    const cost=parseFloat(String(row[tc.cols.cost]||'').replace(/[$,]/g,''))||0;
+    const inter=isInternal(cust);
+    const stCls=status.toLowerCase().includes('deliver')?'sp-del':status.toLowerCase().includes('ship')?'sp-shp':'sp-oth';
     return `<div class="tx-row${inter?' fp':''}">
       <span class="tx-date">${esc(date)}</span>
       <span class="tx-cust" title="${esc(cust)}">${esc(cust)||'—'}</span>
       <span class="tx-qty">${esc(qty)}</span>
-      <span>${status?`<span class="status-pill ${stCls}">${esc(status)}</span>`:'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
+      <span>${status?`<span class="sp ${stCls}">${esc(status)}</span>`:'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
       <span>${inter?'<span class="int-badge">🐼 Internal</span>':'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
       <span class="tx-cost">${cost>0?'$'+cost.toFixed(2):'—'}</span>
       <button class="tx-del-btn" onclick="delRow(${ti},${sheetRow},'${esc(cust)}')" title="Delete">✕</button>
@@ -647,13 +882,136 @@ function buildRows(ti){
   }).join('');
 }
 
-// ── ACTIONS ──
+// ── ADD MODAL ──
+function openAddModal(){
+  const ti=currentTab;
+  const tc=TABS[ti];
+  // Set modal title
+  document.getElementById('modalTabName').textContent=tc.label;
+  // Auto-fill item name & today's date
+  document.getElementById('f_item').value=ITEM_NAMES[ti];
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('f_date').value=today;
+  const now=new Date();
+  const mo=now.toLocaleDateString('en-US',{month:'short',year:'2-digit'}).replace(' ',',');
+  document.getElementById('f_month').value=mo;
+  // Clear other fields
+  ['f_qty','f_poc_name','f_poc_email','f_poc_phone','f_customer','f_address',
+   'f_tracking','f_inv_date','f_inv_no','f_inv_unit','f_ship_cost',
+   'f_ship_inv','f_clickup','f_remarks','f_keka','f_qbo'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  document.getElementById('f_status').value='';
+  document.getElementById('f_paid').value='';
+  document.getElementById('f_completed').value='';
+  document.getElementById('extraFields').innerHTML='';
+  document.getElementById('modalHint').textContent='Fields marked * are required';
+  document.getElementById('saveModalBtn').disabled=false;
+  document.getElementById('saveModalBtn').textContent='💾 Save Shipment';
+  document.getElementById('addModal').classList.add('on');
+}
+
+function closeAddModal(){
+  document.getElementById('addModal').classList.remove('on');
+}
+
+// Close modal on backdrop click
+document.getElementById('addModal').addEventListener('click',function(e){
+  if(e.target===this) closeAddModal();
+});
+
+// Extra fields
+function addExtraField(){
+  const id='ef_'+Date.now();
+  const div=document.createElement('div');
+  div.className='extra-row';
+  div.id=id;
+  div.innerHTML=`
+    <input class="fi extra-key" type="text" placeholder="Field name…"/>
+    <input class="fi extra-val" type="text" placeholder="Value…"/>
+    <button class="btn-rm-field" onclick="document.getElementById('${id}').remove()">−</button>
+  `;
+  document.getElementById('extraFields').appendChild(div);
+}
+
+// ── SAVE SHIPMENT ──
+async function saveNewShipment(){
+  const ti=currentTab;
+  const tc=TABS[ti];
+
+  // Validate required fields
+  const dateVal=document.getElementById('f_date').value;
+  const qtyVal=parseInt(document.getElementById('f_qty').value)||0;
+  const custVal=document.getElementById('f_customer').value.trim();
+
+  if(!dateVal){setModalHint('⚠ Date is required','e');return;}
+  if(qtyVal<1){setModalHint('⚠ Quantity must be at least 1','e');return;}
+  if(!custVal){setModalHint('⚠ Customer Name is required','e');return;}
+
+  // Format date for sheet
+  const d=new Date(dateVal+'T12:00:00');
+  const dateFmt=d.toLocaleDateString('en-US',{month:'numeric',day:'numeric',year:'numeric'});
+
+  // Build values object
+  const vals={
+    date:       dateFmt,
+    month:      document.getElementById('f_month').value,
+    item:       document.getElementById('f_item').value,
+    qty:        qtyVal,
+    poc_name:   document.getElementById('f_poc_name').value.trim(),
+    poc_email:  document.getElementById('f_poc_email').value.trim(),
+    poc_phone:  document.getElementById('f_poc_phone').value.trim(),
+    customer:   custVal,
+    address:    document.getElementById('f_address').value.trim(),
+    tracking:   document.getElementById('f_tracking').value.trim(),
+    status:     document.getElementById('f_status').value,
+    inv_date:   document.getElementById('f_inv_date').value,
+    inv_no:     document.getElementById('f_inv_no').value.trim(),
+    inv_unit:   document.getElementById('f_inv_unit').value||'',
+    paid:       document.getElementById('f_paid').value,
+    ship_cost:  parseFloat(document.getElementById('f_ship_cost').value)||0,
+    ship_inv:   document.getElementById('f_ship_inv').value.trim(),
+    remarks:    document.getElementById('f_remarks').value.trim(),
+    clickup:    document.getElementById('f_clickup').value.trim(),
+    completed:  document.getElementById('f_completed').value,
+    qbo:        document.getElementById('f_qbo').value.trim(),
+    keka:       document.getElementById('f_keka').value.trim(),
+  };
+
+  // Build row array in the correct column order for this tab
+  const row=tc.rowMap.map(key=>vals[key]||'');
+
+  const btn=document.getElementById('saveModalBtn');
+  btn.disabled=true;btn.textContent='Saving…';
+  setModalHint('Saving to Google Sheet…','');
+
+  try{
+    await scriptPost({action:'append', sheet:tc.sheetName, row});
+    setModalHint('✅ Saved successfully!','s');
+    toast(`Added: ${qtyVal}× ${ITEM_NAMES[ti]} → ${custVal}`,'s');
+    setTimeout(()=>closeAddModal(),800);
+    await syncAll();
+  }catch(e){
+    setModalHint('❌ '+e.message,'e');
+    btn.disabled=false;btn.textContent='💾 Save Shipment';
+    toast(e.message,'e');
+  }
+}
+
+function setModalHint(msg, type){
+  const el=document.getElementById('modalHint');
+  el.textContent=msg;
+  el.style.color = type==='e'?'var(--red)':type==='s'?'var(--green)':'var(--txt3)';
+}
+
+// ── DELETE ROW ──
 async function delRow(ti,sheetRow,custName){
-  if(!confirm(`Delete row for "${custName}"? Cannot be undone.`)) return;
+  if(!confirm(`Delete row for "${custName}"? This cannot be undone.`)) return;
   showLdr('Deleting…');
   try{
     await scriptPost({action:'delete',sheet:TABS[ti].sheetName,sheetRow});
-    toast('Deleted.','i');
+    toast('Row deleted.','i');
     await syncAll();
   }catch(e){toast(e.message,'e');}
   hideLdr();
@@ -661,6 +1019,7 @@ async function delRow(ti,sheetRow,custName){
 
 // ── TABS ──
 function goTab(i){
+  currentTab=i;
   document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('on',idx===i));
   document.querySelectorAll('.panel').forEach((p,idx)=>p.classList.toggle('on',idx===i));
 }
@@ -679,8 +1038,8 @@ function saveDrawer(){
 }
 function openDrawer(){fillDrawer();document.getElementById('overlay').classList.add('on');document.getElementById('drawer').classList.add('on');}
 function closeDrawer(){document.getElementById('overlay').classList.remove('on');document.getElementById('drawer').classList.remove('on');}
-function openGuide(){document.getElementById('mOverlay').classList.add('on');document.getElementById('guideModal').classList.add('on');}
-function closeGuide(){document.getElementById('mOverlay').classList.remove('on');document.getElementById('guideModal').classList.remove('on');}
+function openGuide(){document.getElementById('gOverlay').classList.add('on');document.getElementById('gModal').classList.add('on');}
+function closeGuide(){document.getElementById('gOverlay').classList.remove('on');document.getElementById('gModal').classList.remove('on');}
 
 // ── UTILS ──
 function showLdr(t){document.getElementById('ldrTxt').textContent=t;document.getElementById('ldr').classList.add('on');}
