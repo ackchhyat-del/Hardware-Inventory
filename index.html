@@ -741,11 +741,15 @@ async function syncAll(){
   let ok=0;
   results.forEach((r,i)=>{
     if(r.status==='fulfilled'){RAW[i]=r.value;ok++;}
-    else console.warn('Tab',i,TABS[i].sheetName,r.reason?.message);
+    else{
+      const msg=r.reason?.message||'Unknown error';
+      console.warn('Tab',i,TABS[i].sheetName,msg);
+      if(ok===0&&i===2) toast('Sheet fetch failed: '+msg+' — Make sure sheet is shared as "Anyone with the link"','e');
+    }
   });
   for(let i=0;i<3;i++) renderPanel(i);
   updateSyncTime();
-  if(ok===3) setSyncState('live','Live u2713');
+  if(ok===3) setSyncState('live','Live ✓');
   else if(ok>0) setSyncState('live',`${ok}/3 synced`);
   else{setSyncState('err','Cannot reach sheet');toast('Could not load data. Is the sheet shared publicly?','e');}
   startSync();
