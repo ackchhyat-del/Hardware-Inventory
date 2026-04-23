@@ -638,7 +638,7 @@ const ITEM_NAMES = ['Panda Box (Black)','BIXOLON Printer','QR Codes (FleetPanda 
 const INTERNAL_KW = ['fleetpanda','fleet panda'];
 const isInternal  = n => n && INTERNAL_KW.some(k=>n.toLowerCase().includes(k));
 
-let CFG = {}, RAW = [{},{},{}], syncTimer = null, currentTab = 0;
+let CFG = {}, RAW = [null,null,null], syncTimer = null, currentTab = 0;
 
 // ── CONFIG ──
 function loadCFG(){
