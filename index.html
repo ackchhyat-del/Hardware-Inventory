@@ -772,19 +772,16 @@ function updateSyncTime(){
 // ── WRITE ──
 async function scriptPost(payload){
   if(!CFG.scriptUrl) throw new Error("No Apps Script URL. Open Settings to add one.");
-  // Send data via URL param — avoids CORS preflight entirely with Google Apps Script
+  // no-cors mode — fire and forget, then verify via sync
   const url=CFG.scriptUrl+"?data="+encodeURIComponent(JSON.stringify(payload));
-  const res=await fetch(url,{method:"POST",body:""});
-  if(!res.ok) throw new Error("Script HTTP "+res.status);
-  const txt=await res.text();
   try{
-    const j=JSON.parse(txt);
-    if(!j.ok) throw new Error(j.err||"Script error");
+    await fetch(url, {method:"POST", mode:"no-cors", body:""});
   }catch(e){
-    // Apps Script sometimes returns HTML on success after redirect — treat as OK
-    if(txt.includes('"ok":true')||txt.includes('ok')) return;
-    throw new Error("Save failed: "+txt.substring(0,120));
+    // no-cors fetch throws on network error only, not on CORS — so this is a real error
+    throw new Error("Network error: "+e.message);
   }
+  // no-cors gives opaque response — we can't read it, so wait then sync to verify
+  await new Promise(r=>setTimeout(r,1500));
 }
 
 // ── RENDER ──
