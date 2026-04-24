@@ -414,7 +414,79 @@ html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Mono
         </div>
         <div class="field-group">
           <span class="fl">Customer Name *</span>
-          <input class="fi" type="text" id="f_customer" placeholder="Customer…"/>
+          <input class="fi" type="text" id="f_customer" placeholder="Type or select…" list="customerList" autocomplete="off"/>
+          <datalist id="customerList">
+            <option value="3L"/>
+            <option value="A&amp;A Fueling Co"/>
+            <option value="ABS Fuel System / Haffner"/>
+            <option value="AgrilandFS"/>
+            <option value="American Petroleum"/>
+            <option value="Anytime Fuel Pros"/>
+            <option value="Arnold Oil"/>
+            <option value="Blu Petroleum"/>
+            <option value="Bosselman"/>
+            <option value="Brown's Oil Service Inc"/>
+            <option value="Buffalo Biodiesel Inc"/>
+            <option value="Bunjix Energy"/>
+            <option value="CalFuels"/>
+            <option value="Coleman Oil"/>
+            <option value="Corrigan Oil"/>
+            <option value="Delta Fuel Company"/>
+            <option value="Dill Petroleum"/>
+            <option value="Dogpatch Biofuels"/>
+            <option value="Elanfuels"/>
+            <option value="Eli Roberts &amp; Sons"/>
+            <option value="Elite Fuels Transportation Inc (Fuel Drop Distributions)"/>
+            <option value="First Source Fuels"/>
+            <option value="Fleet Fuels"/>
+            <option value="FleetPanda"/>
+            <option value="Flint Energy"/>
+            <option value="Foster Fuels"/>
+            <option value="Fronk Oil Co, Inc."/>
+            <option value="Fuel Man"/>
+            <option value="FuelSource, Inc AKA (Behnke Investments)"/>
+            <option value="G Cooper Oil Co Inc"/>
+            <option value="Gaines Oil Co."/>
+            <option value="Gassy Inc"/>
+            <option value="Gen Oil"/>
+            <option value="Great Lakes"/>
+            <option value="Handaband US"/>
+            <option value="Heritage Petroleum"/>
+            <option value="Horizon Resources"/>
+            <option value="Hunt &amp; Sons, Inc."/>
+            <option value="Hutchens Petroleum"/>
+            <option value="IV Petroleum"/>
+            <option value="J D Street &amp; Co"/>
+            <option value="Lamb Fuels"/>
+            <option value="Liquids Inc"/>
+            <option value="Lonewolf Petroleum"/>
+            <option value="Lucky's Energy Service"/>
+            <option value="Maverick Fuels LLC"/>
+            <option value="McNeece Bros"/>
+            <option value="Melzers Fuel Service"/>
+            <option value="Mescalero Gas Co."/>
+            <option value="Mobico"/>
+            <option value="Mobile Fuel Services"/>
+            <option value="Moffitt Services"/>
+            <option value="Monument Oil"/>
+            <option value="MTI"/>
+            <option value="Noco"/>
+            <option value="Oilworks"/>
+            <option value="OnCall Fuel"/>
+            <option value="Onsite Fuels"/>
+            <option value="PacStates"/>
+            <option value="Paul Murray Oil"/>
+            <option value="Tri Star Energy"/>
+            <option value="Tyree"/>
+            <option value="United SW Fuels"/>
+            <option value="Wallis Oil Co."/>
+            <option value="Walthall Oil"/>
+            <option value="West Coast Bio"/>
+            <option value="Westico Energy (Troubadour Energy)"/>
+            <option value="Wetfuel, LLC"/>
+            <option value="Whitener Enterprises"/>
+            <option value="Yoder"/>
+          </datalist>
         </div>
         <div class="field-group span2" style="grid-column:unset">
           <span class="fl">Customer Address</span>
@@ -601,7 +673,7 @@ const TABS = [
     label:'Panda Box (Black)', sheetName:'Panda Box (Black)', icon:'📦',
     sumRow:{purchased:5,sent:6,remaining:7}, sumValCol:3,
     dataStart:9,
-    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17},
+    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17,poc:4},
     // Column order for appending a new row (matches sheet columns A-T)
     // A=date,B=month,C=item,D=qty,E=poc_name,F=poc_email,G=poc_phone,
     // H=customer,I=address,J=tracking,K=status,L=inv_date,M=inv_no,
@@ -614,7 +686,7 @@ const TABS = [
     label:'Bixolon Printers', sheetName:'Bixolon Printers', icon:'🖨',
     sumRow:{purchased:0,sent:1,remaining:2}, sumValCol:3,
     dataStart:4,
-    cols:{date:0,qty:3,customer:8,status:11,cost:16,remarks:18},
+    cols:{date:0,qty:3,customer:8,status:11,cost:16,remarks:18,poc:5},
     // A=date,B=month,C=item,D=qty,E=qbo,F=poc_name,G=poc_email,H=poc_phone,
     // I=customer,J=address,K=tracking,L=status,M=inv_date,N=inv_no,
     // O=inv_unit,P=paid,Q=ship_cost,R=ship_inv,S=remarks,T=clickup
@@ -626,7 +698,7 @@ const TABS = [
     label:'QR (FleetPanda Branded)', sheetName:'QR (FleetPanda Branded)', icon:'🔲',
     sumRow:{purchased:5,sent:6,remaining:7}, sumValCol:3,
     dataStart:9,
-    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17},
+    cols:{date:0,qty:3,customer:7,status:10,cost:15,remarks:17,poc:4},
     rowMap:['date','month','item','qty','poc_name','poc_email','poc_phone',
             'customer','address','tracking','status','inv_date','inv_no',
             'inv_unit','paid','ship_cost','ship_inv','remarks','clickup','completed']
@@ -643,8 +715,8 @@ let CFG = {}, RAW = [null,null,null], syncTimer = null, currentTab = 0;
 // ── CONFIG ──
 function loadCFG(){
   const s=localStorage.getItem('fp_cfg6');
-  CFG = s ? JSON.parse(s) : {scriptUrl:'https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec',interval:30};
-  if(!CFG.scriptUrl) CFG.scriptUrl='https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec';
+  CFG = s ? JSON.parse(s) : {scriptUrl:'https://script.google.com/macros/s/AKfycbyXy-Tpq6DVLonUMsR-RYH6BrKwmXfZyeVpKsVcNIHACaEV4ivN64-2f7H7BKuKQu6c/exec',interval:30};
+  if(!CFG.scriptUrl) CFG.scriptUrl='https://script.google.com/macros/s/AKfycbyXy-Tpq6DVLonUMsR-RYH6BrKwmXfZyeVpKsVcNIHACaEV4ivN64-2f7H7BKuKQu6c/exec';
 }
 function saveCFG(){ localStorage.setItem('fp_cfg6',JSON.stringify(CFG)); }
 
@@ -772,7 +844,7 @@ function updateSyncTime(){
 
 // ── WRITE ──
 async function scriptPost(payload){
-  if(!CFG.scriptUrl) CFG.scriptUrl="https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec";
+  if(!CFG.scriptUrl) CFG.scriptUrl="https://script.google.com/macros/s/AKfycbyXy-Tpq6DVLonUMsR-RYH6BrKwmXfZyeVpKsVcNIHACaEV4ivN64-2f7H7BKuKQu6c/exec";
   // no-cors mode — fire and forget, then verify via sync
   const url=CFG.scriptUrl+"?data="+encodeURIComponent(JSON.stringify(payload));
   try{
@@ -884,6 +956,7 @@ function buildRows(ti){
     const qty=String(row[tc.cols.qty]||'');
     const status=String(row[tc.cols.status]||'');
     const cost=parseFloat(String(row[tc.cols.cost]||'').replace(/[$,]/g,''))||0;
+    const poc=tc.cols.poc!==undefined?String(row[tc.cols.poc]||''):'';
     const inter=isInternal(cust);
     const stCls=status.toLowerCase().includes('deliver')?'sp-del':status.toLowerCase().includes('ship')?'sp-shp':'sp-oth';
     return `<div class="tx-row${inter?' fp':''}">
@@ -891,7 +964,7 @@ function buildRows(ti){
       <span class="tx-cust" title="${esc(cust)}">${esc(cust)||'—'}</span>
       <span class="tx-qty">${esc(qty)}</span>
       <span>${status?`<span class="sp ${stCls}">${esc(status)}</span>`:'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
-      <span>${inter?'<span class="int-badge">🐼 Internal</span>':'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
+      <span>${inter?`<span class="int-badge">🐼 Internal${poc?' · '+esc(poc):''}</span>`:'<span style="color:var(--txt3);font-size:11px">—</span>'}</span>
       <span class="tx-cost">${cost>0?'$'+cost.toFixed(2):'—'}</span>
       <button class="tx-del-btn" onclick="delRow(${ti},${sheetRow},'${esc(cust)}')" title="Delete">✕</button>
     </div>`;
@@ -996,7 +1069,14 @@ async function saveNewShipment(){
   };
 
   // Build row array in the correct column order for this tab
-  const row=tc.rowMap.map(key=>vals[key]||'');
+  // Explicitly ensure remarks is captured (textarea value)
+  vals.remarks = document.getElementById('f_remarks').value.trim();
+  const row=tc.rowMap.map(key=>{
+    const v=vals[key];
+    return (v===undefined||v===null)?'':v;
+  });
+  // Pad to at least 20 columns so no values are cut off
+  while(row.length < 20) row.push('');
 
   const btn=document.getElementById('saveModalBtn');
   btn.disabled=true;btn.textContent='Saving…';
