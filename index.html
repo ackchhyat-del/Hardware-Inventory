@@ -643,7 +643,8 @@ let CFG = {}, RAW = [null,null,null], syncTimer = null, currentTab = 0;
 // ── CONFIG ──
 function loadCFG(){
   const s=localStorage.getItem('fp_cfg6');
-  CFG = s ? JSON.parse(s) : {scriptUrl:'',interval:30};
+  CFG = s ? JSON.parse(s) : {scriptUrl:'https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec',interval:30};
+  if(!CFG.scriptUrl) CFG.scriptUrl='https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec';
 }
 function saveCFG(){ localStorage.setItem('fp_cfg6',JSON.stringify(CFG)); }
 
@@ -771,7 +772,7 @@ function updateSyncTime(){
 
 // ── WRITE ──
 async function scriptPost(payload){
-  if(!CFG.scriptUrl) throw new Error("No Apps Script URL. Open Settings to add one.");
+  if(!CFG.scriptUrl) CFG.scriptUrl="https://script.google.com/macros/s/AKfycbyPz-ZNmvlju8WGDDZFZpSt8awdEUWRWSNqRfw5WXJlsJE61eO-DGF8NXom27CVfyE/exec";
   // no-cors mode — fire and forget, then verify via sync
   const url=CFG.scriptUrl+"?data="+encodeURIComponent(JSON.stringify(payload));
   try{
